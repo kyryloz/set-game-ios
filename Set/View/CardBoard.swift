@@ -117,12 +117,21 @@ class CardBoard: UIView {
     }
 
     private func layoutCards() {
+        var columnCount: Int
+
+        let currentOrientation: UIInterfaceOrientation = UIApplication.shared.statusBarOrientation
+        if currentOrientation.isPortrait {
+            columnCount = 3
+        } else {
+            columnCount = 6
+        }
+
         grid.frame = bounds
-        var rowCount = Int(ceil(Double(cards.count) / 3.0))
+        var rowCount = Int(ceil(Double(cards.count) / Double(columnCount)))
         if (rowCount <= 1) {
             rowCount = 2
         }
-        grid.dimensions = (rowCount: rowCount, columnCount: 3)
+        grid.dimensions = (rowCount: rowCount, columnCount: columnCount)
 
         for index in self.cards.indices {
             if let cellBounds = self.grid[index] {

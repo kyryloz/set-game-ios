@@ -17,7 +17,7 @@ class MenuViewController: UIViewController {
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let gameViewController = segue.destination as? ViewController {
+        if let gameViewController = segue.destination as? GameViewController {
             switch segue.identifier {
             case "newGame":
                 gameViewController.stateData = nil

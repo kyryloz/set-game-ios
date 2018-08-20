@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, CardViewTapDelegate, GameDelegate {
+class GameViewController: UIViewController, CardViewTapDelegate, GameDelegate {
 
     @IBOutlet weak var cardBoardView: CardBoard!
     @IBOutlet weak var buttonDrawNext: UIButton!

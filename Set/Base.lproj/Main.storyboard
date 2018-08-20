@@ -66,10 +66,10 @@
             </objects>
             <point key="canvasLocation" x="54.375" y="30.633802816901408"/>
         </scene>
-        <!--View Controller-->
+        <!--Game View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Set" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="GameViewController" customModule="Set" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -78,8 +78,8 @@
                                 <rect key="frame" x="16" y="434" width="100" height="50"/>
                                 <color key="backgroundColor" red="0.0" green="0.56904578210000001" blue="0.57461684940000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="NE4-0O-Aa2"/>
                                     <constraint firstAttribute="height" constant="50" id="hMI-S9-z7o"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="mmf-nm-huS"/>
                                 </constraints>
                                 <size key="titleShadowOffset" width="2" height="2"/>
                                 <state key="normal" title="Deal">
@@ -132,6 +132,7 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="VkJ-4l-AHl" secondAttribute="bottom" constant="20" id="e3p-ZV-Vjk"/>
                             <constraint firstItem="VkJ-4l-AHl" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="hL8-uK-6U0"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Kyj-fT-cOr" secondAttribute="trailing" constant="16" id="mwy-oh-tQm"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="VkJ-4l-AHl" secondAttribute="trailing" constant="20" symbolic="YES" id="uoW-EZ-0Uq"/>
                             <constraint firstItem="Efe-92-IKN" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="16" id="zj9-UD-lck"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -158,7 +159,7 @@
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Wnb-Vq-A0K">
                                 <rect key="frame" x="16" y="16" width="288" height="472"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                <mutableString key="text">The object of the game is to identify a 'set' of three cards from 12 cards laid out on the table. Each card has a variation of the following four features:
+                                <string key="text">The object of the game is to identify a 'set' of three cards from 12 cards laid out on the table. Each card has a variation of the following four features:
 
 Color: 
 Each card is red, green, or purple.
@@ -171,7 +172,7 @@ Each card has one, two, or three symbols.
 
 Shading: Each card is solid, open, or striped.
 
-A 'Set' consists of three cards in which each feature is EITHER the same on each card OR is different on each card. That is to say, any feature in the 'Set' of three cards is either common to all three cards or is different on each card.</mutableString>
+A 'Set' consists of three cards in which each feature is EITHER the same on each card OR is different on each card. That is to say, any feature in the 'Set' of three cards is either common to all three cards or is different on each card.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
