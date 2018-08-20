@@ -146,9 +146,9 @@ class CardBoard: UIView {
                         options: [.curveEaseOut],
                         animations: {
                             cardViewItem.frame = cellBounds.insetBy(dx: 5, dy: 5)
-                    },
+                        },
                         completion: nil)
-                }
+                    }
             }
         }
     }
@@ -200,10 +200,10 @@ class CardBoard: UIView {
                                  options: [.curveEaseInOut],
                                  animations: {
                                      cardView.frame = self.superview!.convert(self.discardView.frame, to: self)
-                             },
+                                 },
                                  completion: { _ in
                                      cardView.removeFromSuperview()
-                             })
+                                 })
                           })
     }
 }

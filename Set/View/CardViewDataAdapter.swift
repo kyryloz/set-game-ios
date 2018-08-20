@@ -32,13 +32,13 @@ struct CardViewDataAdapter {
         let symbol: CardView.Symbol = {
             switch symbolFeature {
             case 0:
-                return .triangle
+                return .diamond
             case 1:
                 return .circle
             case 2:
                 return .square
             default:
-                return .triangle
+                return .diamond
             }
         }()
 

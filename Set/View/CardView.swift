@@ -10,26 +10,26 @@ import UIKit
 
 class CardView: UIView {
     
-    enum Symbol: String {
-        case triangle = "▲"
-        case circle = "●"
-        case square = "■"
+    enum Symbol {
+        case diamond
+        case circle
+        case square
     }
     
-    enum Shading: Int {
+    enum Shading {
         case solid
         case open
         case stripped
     }
     
-    enum Highlighting: Int {
+    enum Highlighting {
         case none
         case selected
         case matched
         case unmatched
     }
     
-    var symbol: Symbol = Symbol.triangle { didSet { setNeedsDisplay() } }
+    var symbol: Symbol = Symbol.diamond { didSet { setNeedsDisplay() } }
     var shading: Shading = Shading.solid { didSet { setNeedsDisplay() } }
 
     var highlighting: Highlighting = Highlighting.none {
@@ -134,7 +134,7 @@ class CardView: UIView {
         var symbols = [UIBezierPath]()
         for point in symbolDrawPoints {
             switch symbol {
-            case .triangle:
+            case .diamond:
                 symbols.append(drawDiamond(centeredIn: point))
             case .circle:
                 symbols.append(drawCircle(centeredIn: point))
@@ -190,7 +190,8 @@ class CardView: UIView {
         let symbolWidth = Constants.symbolSize
         let symbolHeight = Constants.symbolSize
 
-        let rect = CGRect(origin: point.offsetBy(dx: -symbolWidth / 2, dy: -symbolHeight / 2), size: CGSize(width: symbolWidth, height: symbolHeight))
+        let rect = CGRect(origin: point.offsetBy(dx: -symbolWidth / 2, dy: -symbolHeight / 2),
+                          size: CGSize(width: symbolWidth, height: symbolHeight))
         let path = UIBezierPath(ovalIn: rect)
 
         return path
@@ -200,7 +201,8 @@ class CardView: UIView {
         let symbolWidth = Constants.symbolSize
         let symbolHeight = Constants.symbolSize
 
-        let rect = CGRect(origin: point.offsetBy(dx: -symbolWidth / 2, dy: -symbolHeight / 2), size: CGSize(width: symbolWidth, height: symbolHeight))
+        let rect = CGRect(origin: point.offsetBy(dx: -symbolWidth / 2, dy: -symbolHeight / 2),
+                          size: CGSize(width: symbolWidth, height: symbolHeight))
         let path = UIBezierPath(roundedRect: rect, cornerRadius: 2)
 
         return path
