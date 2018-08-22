@@ -128,7 +128,7 @@ class SetGame: Game {
         assert(count > 0, "Cannot deal negative amount of cards")
         assert(canDeal(count: count), "Cannot deal \(count), only \(state.cardsInDeck.count) left")
 
-        if withPenalty, areThereAnySetsInGame() {
+        if withPenalty {
             let score = Score(rawValue: -3)!
             state.score += score.rawValue
             gameDelegate?.didScoreUpdate(sumScore: state.score, lastMoveScore: score)
@@ -173,8 +173,9 @@ class SetGame: Game {
         return gameFinished
     }
 
-    func areThereAnySetsInGame() -> Bool {
-        return GameUtils.containsSet(in: state.cardsInGame, forFeatureCount: Constants.featureCountMax)
+    func canDealWithoutPenalty() -> Bool {
+        return !GameUtils.containsSet(in: state.cardsInGame, forFeatureCount: Constants.featureCountMax)
+            || context == .matchedSetOnBoard
     }
 
     private func canDeal(count: Int) -> Bool {

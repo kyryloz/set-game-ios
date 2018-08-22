@@ -17,5 +17,5 @@ protocol Game {
 
     func isGameFinished() -> Bool
 
-    func areThereAnySetsInGame() -> Bool
+    func canDealWithoutPenalty() -> Bool
 }

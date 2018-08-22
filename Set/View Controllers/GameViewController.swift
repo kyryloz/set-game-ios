@@ -17,7 +17,9 @@ class GameViewController: UIViewController, CardViewTapDelegate, GameDelegate {
     @IBOutlet weak var scoringLabel: UILabel!
     
     @IBAction func didDealPress(_ sender: Any) {
-        if game.areThereAnySetsInGame() {
+        if game.canDealWithoutPenalty() {
+            game.dealCards(count: 3, withPenalty: false)
+        } else {
             let alert = UIAlertController(title: "Oops",
                                           message: "There is set on the desk. Dealing more cards will cost you 3 points. Still want to deal more?",
                                           preferredStyle: UIAlertControllerStyle.alert)
@@ -28,8 +30,6 @@ class GameViewController: UIViewController, CardViewTapDelegate, GameDelegate {
             }))
 
             self.present(alert, animated: true, completion: nil)
-        } else {
-            game.dealCards(count: 3, withPenalty: false)
         }
     }
 
@@ -102,6 +102,8 @@ class GameViewController: UIViewController, CardViewTapDelegate, GameDelegate {
         scoreText.text = "Score: \(sumScore)"
 
         if let score = lastMoveScore {
+            UserDefaults.standard.set(game.serialize(), forKey: "state")
+
             scoringLabel.text = {
                 switch score {
                 case .veryNegative:
@@ -200,14 +202,6 @@ class GameViewController: UIViewController, CardViewTapDelegate, GameDelegate {
         cardBoardView.tapDelegate = self
         cardBoardView.deckView = buttonDrawNext
         cardBoardView.discardView = discardPileView
-    }
-
-    override func viewWillDisappear(_ animated : Bool) {
-        super.viewWillDisappear(animated)
-
-        if self.isMovingFromParentViewController, !game.isGameFinished() {
-            UserDefaults.standard.set(game.serialize(), forKey: "state")
-        }
     }
 
     override func viewDidLayoutSubviews() {
