@@ -47,11 +47,19 @@
                                     </button>
                                 </subviews>
                             </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="High Score: 0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uhb-Nz-zqb">
+                                <rect key="frame" x="108" y="463.5" width="104" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="0Cb-Xy-axZ" firstAttribute="bottom" secondItem="uhb-Nz-zqb" secondAttribute="bottom" constant="20" id="BQe-5B-OXi"/>
                             <constraint firstItem="YmI-AZ-HI2" firstAttribute="centerX" secondItem="9RJ-uD-dYd" secondAttribute="centerX" id="Rag-dS-hsF"/>
                             <constraint firstItem="YmI-AZ-HI2" firstAttribute="centerY" secondItem="9RJ-uD-dYd" secondAttribute="centerY" id="V80-KA-X8m"/>
+                            <constraint firstItem="uhb-Nz-zqb" firstAttribute="centerX" secondItem="9RJ-uD-dYd" secondAttribute="centerX" id="zbo-8Z-p7I"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="0Cb-Xy-axZ"/>
                     </view>
@@ -60,6 +68,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="continueButton" destination="NpM-8G-mdK" id="YVn-w9-Ve3"/>
+                        <outlet property="highScoreLabel" destination="uhb-Nz-zqb" id="14k-yV-hTn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9lo-Xs-5D1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -122,10 +131,18 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Scoring" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oIR-Qm-Jfv">
+                                <rect key="frame" x="138.5" y="410" width="43.5" height="14.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="oIR-Qm-Jfv" firstAttribute="top" secondItem="Efe-92-IKN" secondAttribute="bottom" constant="6" id="A4S-B5-cjH"/>
                             <constraint firstItem="VkJ-4l-AHl" firstAttribute="top" secondItem="Efe-92-IKN" secondAttribute="bottom" constant="30" id="BO6-jS-VeU"/>
+                            <constraint firstItem="oIR-Qm-Jfv" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="PjR-0o-rHR"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Kyj-fT-cOr" secondAttribute="bottom" constant="20" id="SKo-cq-uPf"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Efe-92-IKN" secondAttribute="trailing" constant="16" id="Tqn-bk-P63"/>
                             <constraint firstItem="Efe-92-IKN" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="VpO-E6-enc"/>
@@ -142,6 +159,7 @@
                         <outlet property="cardBoardView" destination="Efe-92-IKN" id="tmW-jD-pgf"/>
                         <outlet property="discardPileView" destination="Kyj-fT-cOr" id="MNx-jQ-63l"/>
                         <outlet property="scoreText" destination="vYd-HJ-Pl3" id="KmG-52-S6x"/>
+                        <outlet property="scoringLabel" destination="oIR-Qm-Jfv" id="ODl-lK-ODu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

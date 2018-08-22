@@ -14,4 +14,6 @@ protocol Game {
     func dealCards(count: Int)
 
     func serialize() -> Data
+
+    func isGameFinished() -> Bool
 }

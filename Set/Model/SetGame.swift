@@ -29,6 +29,8 @@ class SetGame: Game {
 
     private var cardStates = [Card : Card.CardState]()
 
+    private var gameFinished = false
+
     private var selectedCards: [Card] {
         return state.cardsInGame.filter { cardStates[$0] != .unselected }
     }
@@ -78,7 +80,7 @@ class SetGame: Game {
 
         gameDelegate.didDeal(cards: self.state.cardsInGame)
         gameDelegate.didCardInDeckAvailabilityChange(count: self.state.cardsInDeck.count, canDealMore: canDeal(count: 3))
-        gameDelegate.didScoreUpdate(score: self.state.score)
+        gameDelegate.didScoreUpdate(sumScore: self.state.score, lastMoveScore: nil)
     }
 
     func select(card selectedCard: Card) {
@@ -102,6 +104,7 @@ class SetGame: Game {
             if selectedCards.count == Constants.featureOptionsCountMax - 1, !selectedCards.contains(selectedCard) {
                 let cardsToCheck = selectedCards + [selectedCard]
                 let isSet = GameUtils.isSet(cardsToCheck, forFeatureCount: Constants.featureCountMax)
+                let score = isSet ? GameUtils.calculateScore(cardsToCheck) : Score(rawValue: -1)!
 
                 cardsToCheck.forEach {
                     let selection = isSet ? Card.CardState.matched : .unmatched
@@ -109,11 +112,12 @@ class SetGame: Game {
                     gameDelegate?.didChangeSelection(for: $0, to: selection)
                 }
 
-                state.score += isSet ? 3 : -1
+                state.score += score.rawValue
                 if isSet {
-                    gameDelegate?.didCardInDeckAvailabilityChange(count: state.cardsInDeck.count, canDealMore: canDeal(count: cardsToCheck.count))
+                    gameDelegate?.didCardInDeckAvailabilityChange(count: state.cardsInDeck.count,
+                                                                  canDealMore: canDeal(count: cardsToCheck.count))
                 }
-                gameDelegate?.didScoreUpdate(score: state.score)
+                gameDelegate?.didScoreUpdate(sumScore: state.score, lastMoveScore: score)
             } else {
                 switchSelection(for: selectedCard)
             }
@@ -159,6 +163,10 @@ class SetGame: Game {
         return try! encoder.encode(state)
     }
 
+    func isGameFinished() -> Bool {
+        return gameFinished
+    }
+
     private func canDeal(count: Int) -> Bool {
         return state.cardsInGame.count - matchedCards.count + count <= maxCardOnBoard ?? Constants.maxCardAmount
             && state.cardsInDeck.count >= count
@@ -169,6 +177,7 @@ class SetGame: Game {
         let removedCards = matchedCards
         state.cardsInGame.remove(at: matchedCardIndices)
         gameDelegate?.didRemove(cards: removedCards)
+        checkGameFinished()
     }
 
     private func switchSelection(for card: Card) {
@@ -182,6 +191,14 @@ class SetGame: Game {
                 cardStates[$0] = .unselected
                 gameDelegate?.didChangeSelection(for: $0, to: .unselected)
             }
+        }
+    }
+
+    private func checkGameFinished() {
+        let remainedCards = state.cardsInDeck + state.cardsInGame
+        if !GameUtils.containsSet(in: remainedCards, forFeatureCount: Constants.featureCountMax) {
+            gameDelegate?.didGameFinish(score: state.score)
+            gameFinished = true
         }
     }
 }

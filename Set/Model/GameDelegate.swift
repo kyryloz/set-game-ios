@@ -17,7 +17,9 @@ protocol GameDelegate: class {
     
     func didChangeSelection(for card: Card, to selection: Card.CardState)
     
-    func didScoreUpdate(score: Int)
+    func didScoreUpdate(sumScore: Int, lastMoveScore: Score?)
     
     func didCardInDeckAvailabilityChange(count: Int, canDealMore: Bool)
+
+    func didGameFinish(score: Int)
 }

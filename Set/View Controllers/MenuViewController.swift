@@ -11,9 +11,11 @@ import UIKit
 class MenuViewController: UIViewController {
 
     @IBOutlet weak var continueButton: UIButton!
-    
+    @IBOutlet weak var highScoreLabel: UILabel!
+
     override func viewDidAppear(_ animated: Bool) {
         continueButton.isEnabled = UserDefaults.standard.data(forKey: "state") != nil
+        highScoreLabel.text = "High Score: \(UserDefaults.standard.integer(forKey: "highScore"))"
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

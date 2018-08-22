@@ -47,10 +47,15 @@ extension Collection {
 extension Collection where Element: Hashable {
     
     func areAllItemsSameOrAllDifferent() -> Bool {
-        let uniqueElementsCount = uniqCount()
-        let allSame = uniqueElementsCount <= 1
-        let allDifferent = uniqueElementsCount == self.count
-        return allSame || allDifferent
+        return allSame() || allDifferent()
+    }
+
+    func allSame() -> Bool {
+        return uniqCount() <= 1
+    }
+
+    func allDifferent() -> Bool {
+        return uniqCount() == self.count
     }
     
     func uniqCount() -> Int {

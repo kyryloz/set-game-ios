@@ -42,4 +42,43 @@ class GameUtils {
         
         return true
     }
+
+    static func calculateScore(_ cards: [Card]) -> Score {
+        assert(!cards.isEmpty)
+        assert(isSet(cards, forFeatureCount: cards.first?.features.count ?? 0))
+
+        var differentFeaturesCount = 0
+
+        for featureIndex in 0..<(cards.first?.features.count ?? 0) {
+            let cardFeatures = cards.map { $0.features[featureIndex] }
+            if cardFeatures.allDifferent() {
+                differentFeaturesCount += 1
+            }
+        }
+
+        return Score(rawValue: differentFeaturesCount)!
+    }
+
+    static func containsSet(in cards: [Card], forFeatureCount featureCount: Int) -> Bool {
+        if cards.count == 0 {
+            return false
+        }
+
+        if cards.count >= 21 {
+            return true
+        }
+
+        for first in 0..<cards.count {
+            for second in (first + 1)..<cards.count {
+                for third in (second + 1)..<cards.count {
+                    let maybeSet = [cards[first], cards[second], cards[third]]
+                    if isSet(maybeSet, forFeatureCount: featureCount) {
+                        return true
+                    }
+                }
+            }
+        }
+
+        return false
+    }
 }
