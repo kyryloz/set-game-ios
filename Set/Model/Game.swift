@@ -11,7 +11,7 @@ import Foundation
 protocol Game {
     func select(card: Card)
 
-    func dealCards(count: Int)
+    func dealCards(count: Int, withPenalty: Bool)
 
     func serialize() -> Data
 

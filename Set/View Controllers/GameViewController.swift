@@ -24,12 +24,12 @@ class GameViewController: UIViewController, CardViewTapDelegate, GameDelegate {
 
             alert.addAction(UIAlertAction(title: "No, forget it", style: UIAlertActionStyle.cancel, handler: nil))
             alert.addAction(UIAlertAction(title: "Yes, I can't find any!", style: UIAlertActionStyle.default, handler: { _ in
-                self.game.dealCards(count: 3)
+                self.game.dealCards(count: 3, withPenalty: true)
             }))
 
             self.present(alert, animated: true, completion: nil)
         } else {
-            game.dealCards(count: 3)
+            game.dealCards(count: 3, withPenalty: false)
         }
     }
 
@@ -224,7 +224,7 @@ class GameViewController: UIViewController, CardViewTapDelegate, GameDelegate {
         game = SetGame(gameDelegate: self, maxCardOnBoard: 24)
         cardViews = [:]
         cardBoardView.clear()
-        game.dealCards(count: 12)
+        game.dealCards(count: 12, withPenalty: false)
     }
 
     private func continueGame(data: Data) {
