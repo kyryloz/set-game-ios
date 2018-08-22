@@ -21,7 +21,7 @@ class GameViewController: UIViewController, CardViewTapDelegate, GameDelegate {
             game.dealCards(count: 3, withPenalty: false)
         } else {
             let alert = UIAlertController(title: "Oops",
-                                          message: "There is set on the desk. Dealing more cards will cost you 3 points. Still want to deal more?",
+                                          message: "There is set on the board. Dealing more cards will cost you 3 points. Still want to deal more?",
                                           preferredStyle: UIAlertControllerStyle.alert)
 
             alert.addAction(UIAlertAction(title: "No, forget it", style: UIAlertActionStyle.cancel, handler: nil))
