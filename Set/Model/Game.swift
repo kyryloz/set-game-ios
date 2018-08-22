@@ -16,4 +16,6 @@ protocol Game {
     func serialize() -> Data
 
     func isGameFinished() -> Bool
+
+    func areThereAnySetsInGame() -> Bool
 }

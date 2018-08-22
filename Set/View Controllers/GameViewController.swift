@@ -17,7 +17,20 @@ class GameViewController: UIViewController, CardViewTapDelegate, GameDelegate {
     @IBOutlet weak var scoringLabel: UILabel!
     
     @IBAction func didDealPress(_ sender: Any) {
-        game.dealCards(count: 3)
+        if game.areThereAnySetsInGame() {
+            let alert = UIAlertController(title: "Oops",
+                                          message: "There is set on the desk. Dealing more cards will cost you 3 points. Still want to deal more?",
+                                          preferredStyle: UIAlertControllerStyle.alert)
+
+            alert.addAction(UIAlertAction(title: "No, forget it", style: UIAlertActionStyle.cancel, handler: nil))
+            alert.addAction(UIAlertAction(title: "Yes, I can't find any!", style: UIAlertActionStyle.default, handler: { _ in
+                self.game.dealCards(count: 3)
+            }))
+
+            self.present(alert, animated: true, completion: nil)
+        } else {
+            game.dealCards(count: 3)
+        }
     }
 
     var stateData: Data?
@@ -91,6 +104,8 @@ class GameViewController: UIViewController, CardViewTapDelegate, GameDelegate {
         if let score = lastMoveScore {
             scoringLabel.text = {
                 switch score {
+                case .veryNegative:
+                    return "Booo (( \(score.rawValue) points."
                 case .negative:
                     return "That's wrong. \(score.rawValue) point."
                 case .low:
@@ -106,8 +121,10 @@ class GameViewController: UIViewController, CardViewTapDelegate, GameDelegate {
 
             scoringLabel.textColor = {
                 switch score {
+                case .veryNegative:
+                    return #colorLiteral(red: 0.9374603426, green: 0.07006900477, blue: 0, alpha: 1)
                 case .negative:
-                    return #colorLiteral(red: 1, green: 0, blue: 0.04677283753, alpha: 1)
+                    return #colorLiteral(red: 0.7733978426, green: 0.006644498635, blue: 0.04286223362, alpha: 1)
                 case .low:
                     return #colorLiteral(red: 0.1231316989, green: 0.3867650947, blue: 0.2095457099, alpha: 1)
                 case .medium:
@@ -163,10 +180,10 @@ class GameViewController: UIViewController, CardViewTapDelegate, GameDelegate {
                                       message: message,
                                       preferredStyle: UIAlertControllerStyle.alert)
 
-        alert.addAction(UIAlertAction(title: "New game", style: UIAlertActionStyle.default, handler: { _ in
+        alert.addAction(UIAlertAction(title: "New game", style: UIAlertActionStyle.cancel, handler: { _ in
             self.startNewGame()
         }))
-        alert.addAction(UIAlertAction(title: "Finish", style: UIAlertActionStyle.cancel, handler: { _ in
+        alert.addAction(UIAlertAction(title: "Finish", style: UIAlertActionStyle.default, handler: { _ in
             self.finishGame()
         }))
 

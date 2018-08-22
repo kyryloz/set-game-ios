@@ -9,6 +9,7 @@
 import Foundation
 
 enum Score: Int {
+    case veryNegative = -3
     case negative = -1
     case low = 1
     case medium = 2

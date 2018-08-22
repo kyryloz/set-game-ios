@@ -9,7 +9,7 @@
 import Foundation
 
 class SetGame: Game {
-    
+
     private enum Context {
         case matchedSetOnBoard
         case unmatchedSetOnBoard
@@ -128,6 +128,12 @@ class SetGame: Game {
         assert(count > 0, "Cannot deal negative amount of cards")
         assert(canDeal(count: count), "Cannot deal \(count), only \(state.cardsInDeck.count) left")
 
+        if areThereAnySetsInGame() {
+            let score = Score(rawValue: -3)!
+            state.score += score.rawValue
+            gameDelegate?.didScoreUpdate(sumScore: state.score, lastMoveScore: score)
+        }
+
         var cardsToDeal = [Card]()
         var cardsToReplaceFrom = [Card]()
         var cardsToReplaceTo = [Card]()
@@ -165,6 +171,10 @@ class SetGame: Game {
 
     func isGameFinished() -> Bool {
         return gameFinished
+    }
+
+    func areThereAnySetsInGame() -> Bool {
+        return GameUtils.containsSet(in: state.cardsInGame, forFeatureCount: Constants.featureCountMax)
     }
 
     private func canDeal(count: Int) -> Bool {
