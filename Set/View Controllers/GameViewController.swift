@@ -150,10 +150,17 @@ class GameViewController: UIViewController, CardViewTapDelegate, GameDelegate {
     }
 
     func didGameFinish(score: Int) {
-        UserDefaults.standard.set(score, forKey: "highScore")
+        let prevHighScore = UserDefaults.standard.integer(forKey: "highScore")
+
+        var message = "You've scored \(score) points"
+
+        if score > prevHighScore {
+            UserDefaults.standard.set(score, forKey: "highScore")
+            message = "You've scored \(score) points. That's a highscore!"
+        }
 
         let alert = UIAlertController(title: "No sets left",
-                                      message: "You've scored \(score) points",
+                                      message: message,
                                       preferredStyle: UIAlertControllerStyle.alert)
 
         alert.addAction(UIAlertAction(title: "New game", style: UIAlertActionStyle.default, handler: { _ in
