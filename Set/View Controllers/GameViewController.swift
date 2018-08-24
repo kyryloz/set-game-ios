@@ -40,7 +40,7 @@ class GameViewController: UIViewController, CardViewTapDelegate, GameDelegate {
     private let cardViewDataAdapter = CardViewDataAdapter()
     
     private var cardViews = [Card: CardView]()
-    
+
     func didDeal(cards: [Card]) {
         let cardViewItems = cards.map { (card) -> CardView in
             let cardView = CardView()
@@ -50,6 +50,8 @@ class GameViewController: UIViewController, CardViewTapDelegate, GameDelegate {
         }
 
         cardBoardView.addCardViews(cardViewItems)
+
+        saveGame()
     }
     
     func didRemove(cards: [Card]) {
@@ -65,6 +67,8 @@ class GameViewController: UIViewController, CardViewTapDelegate, GameDelegate {
             .compactMap { $0 }
 
         cardBoardView.removeCardViews(cardViewItems)
+
+        saveGame()
     }
     
     func didReplace(from oldCards: [Card], to newCards: [Card]) {
@@ -90,6 +94,8 @@ class GameViewController: UIViewController, CardViewTapDelegate, GameDelegate {
         }
 
         cardBoardView.replaceCardView(from: cardViewItemsToReplaceFrom, to: cardViewItemsToReplaceTo)
+
+        saveGame()
     }
     
     func didChangeSelection(for card: Card, to selection: Card.CardState) {
@@ -102,8 +108,6 @@ class GameViewController: UIViewController, CardViewTapDelegate, GameDelegate {
         scoreText.text = "Score: \(sumScore)"
 
         if let score = lastMoveScore {
-            UserDefaults.standard.set(game.serialize(), forKey: "state")
-
             scoringLabel.text = {
                 switch score {
                 case .veryNegative:
@@ -229,5 +233,11 @@ class GameViewController: UIViewController, CardViewTapDelegate, GameDelegate {
         UserDefaults.standard.removeObject(forKey: "state")
         UserDefaults.standard.synchronize()
         navigationController?.popViewController(animated: true)
+    }
+
+    private func saveGame() {
+        if let state = game?.serialize() {
+            UserDefaults.standard.set(state, forKey: "state")
+        }
     }
 }

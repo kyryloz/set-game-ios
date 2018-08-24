@@ -66,7 +66,7 @@ class SetGame: Game {
         for permutation in featurePermutations {
             let card = Card(features: permutation)
             state.cardsInDeck += [card]
-            state.cardsInDeck.shuffle()
+//            state.cardsInDeck.shuffle()
         }
     }
 

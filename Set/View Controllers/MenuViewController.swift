@@ -13,12 +13,16 @@ class MenuViewController: UIViewController {
     @IBOutlet weak var continueButton: UIButton!
     @IBOutlet weak var highScoreLabel: UILabel!
 
-    override func viewDidAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
         continueButton.isEnabled = UserDefaults.standard.data(forKey: "state") != nil
         highScoreLabel.text = "High Score: \(UserDefaults.standard.integer(forKey: "highScore"))"
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+
         if let gameViewController = segue.destination as? GameViewController {
             switch segue.identifier {
             case "newGame":

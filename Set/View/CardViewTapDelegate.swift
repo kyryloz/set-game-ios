@@ -8,6 +8,6 @@
 
 import Foundation
 
-protocol CardViewTapDelegate {
+protocol CardViewTapDelegate: class {
     func didTap(cardView: CardView)
 }

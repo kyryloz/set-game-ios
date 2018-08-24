@@ -18,7 +18,7 @@ class CardBoard: UIView {
     var deckView: UIView!
     var discardView: UIView!
     
-    var tapDelegate: CardViewTapDelegate?
+    weak var tapDelegate: CardViewTapDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
